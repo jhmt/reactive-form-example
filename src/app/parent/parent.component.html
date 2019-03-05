@@ -1,0 +1,27 @@
+<form [formGroup]="formGroup">
+  Name: <input [formControlName]="'name'" [ngModel]="''"><br>
+
+  <app-children1 [formGroup]="formGroup"></app-children1>
+  Address: <br>
+
+  <ng-container *ngFor="let address of addresses; let index = index;" [formArrayName]="'addresses'">
+    &nbsp;&nbsp;{{ address }}: <br>
+    <ng-container [formGroupName]="index">
+      Street: <input [formControlName]="'street'" [ngModel]="''">
+      City: <input [formControlName]="'city'" [ngModel]="''">
+      <br>
+    </ng-container>
+  </ng-container>
+
+  Phone number<br>
+  <ng-container *ngFor="let phone_number of phone_numbers; let index = index;">
+    &nbsp;&nbsp;{{ phone_number }}<br>
+    <app-children2 [formArray]="getFormArrayOfString( 'phone_numbers' )"></app-children2>
+  </ng-container>
+</form>
+
+<br>
+formGroup?.value | json <br>
+<pre *ngIf="formGroup">
+{{ formGroup?.value | json }}
+</pre>
